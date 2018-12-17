@@ -1,0 +1,14 @@
+Reads from ~/.ssh/config file
+Expectes entries with the following form 
+
+KeepAlive yes
+ServerAliveInterval 90
+
+IdentityFile ~/.ssh/id_rsa_test1
+
+Host		custom_name_very_name
+HostName	hostname.domain.something.wow.example
+
+Host		custom_name_such_inspiration
+HostName	hostname2.domain.something.wow.example
+

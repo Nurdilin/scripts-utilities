@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hudson.model.ListView>
+  <name>old_jobs</name>
+  <filterExecutors>false</filterExecutors>
+  <filterQueue>false</filterQueue>
+  <properties class="hudson.model.View$PropertyList"/>
+  <jobNames>
+    <comparator class="hudson.util.CaseInsensitiveComparator"/>
+  </jobNames>
+  <jobFilters>
+    <hudson.views.RegExJobFilter plugin="view-job-filters@1.27">
+      <includeExcludeTypeString>excludeMatched</includeExcludeTypeString>
+      <valueTypeString>NAME</valueTypeString>
+      <regex>.*.master</regex>
+    </hudson.views.RegExJobFilter>
+    <hudson.views.RegExJobFilter plugin="view-job-filters@1.27">
+      <includeExcludeTypeString>excludeMatched</includeExcludeTypeString>
+      <valueTypeString>NAME</valueTypeString>
+      <regex>.*.release.*.</regex>
+    </hudson.views.RegExJobFilter>
+    <hudson.views.BuildTrendFilter plugin="view-job-filters@1.27">
+      <includeExcludeTypeString>excludeMatched</includeExcludeTypeString>
+      <buildCountTypeString>Latest</buildCountTypeString>
+      <amountTypeString>Days</amountTypeString>
+      <amount>40.0</amount>
+      <statusTypeString>Started</statusTypeString>
+    </hudson.views.BuildTrendFilter>
+  </jobFilters>
+  <columns>
+    <hudson.views.StatusColumn/>
+    <hudson.views.JobColumn/>
+    <hudson.views.LastSuccessColumn/>
+    <hudson.plugins.nodenamecolumn.NodeNameColumn plugin="nodenamecolumn@1.2"/>
+  </columns>
+  <includeRegex>.*.</includeRegex>
+  <recurse>false</recurse>
+</hudson.model.ListView>

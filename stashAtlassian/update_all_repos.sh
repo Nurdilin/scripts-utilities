@@ -1,0 +1,1 @@
+for d in ./*/ ; do ( cd "$d" && git reset --hard HEAD && git checkout master && git pull && git reset --hard HEAD); done

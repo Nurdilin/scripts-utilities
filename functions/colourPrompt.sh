@@ -1,0 +1,43 @@
+#!/bin/bash
+
+#INSTEAD OF \033 WE CAN HAVE \e eg BOLD="\e[1m"
+BOLD="\033[1m"
+RESET="\033[0m"
+UNDERLINE="\033[4m"
+
+GREY="\033[30m"
+RED="\033[31m"
+GREEN="\033[32m"
+YELLOW="\033[33m"
+BLUE="\033[34m"
+MAGENDA="\033[35m"
+CYAN="\033[36m"
+WHITE="\033[37m"
+ORANGE="\033[39m"
+
+BOLD_GREY="\033[1;30m"
+BOLD_RED="\033[1;31m"
+BOLD_GREEN="\033[1;32m"
+BOLD_YELLOW="\033[1;33m"
+BOLD_BLUE="\033[1;34m"
+BOLD_MAGENDA="\033[1;35m"
+BOLD_CYAN="\033[1;36m"
+BOLD_WHITE="\033[1;37m"
+BOLD_ORANGE="\033[1;39m"
+
+GREY_BACKGROUND="\033[40m"
+RED_BACKGROUND="\033[41m"
+GREEN_BACKGROUND="\033[42m"
+YELLOW_BACKGROUND="\033[43m"
+BLUE_BACKGROUND="\033[44m"
+MAGENDA_BACKGROUND="\033[45m"
+CYAN_BACKGROUND="\033[46m"
+WHITE_BACKGROUND="\033[47m"
+ORANGE_BACKGROUND="\033[49m"
+
+#some examples
+#echo -e "${RED}Your hostname is ${RESET}$(hostname) ${BOLD_RED}And this is bold red${RESET}"
+#echo -e '\033[33m'"yello text"
+#echo -e '\033[33;44m'"yellow text on blue background"
+#echo -e '\033[1;33;44m'"BOLD yellow text on blue background"
+#echo -e "${GREY}${RED_BACKGROUND}Grey in red background ${RESET}"

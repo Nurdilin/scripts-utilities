@@ -1,0 +1,10 @@
+In the cfg file list servers we need to check with the following format:
+
+custom name : ip/url : port
+
+eg
+
+my laptop http : localhost :80
+my laptop custom: localhost : 1900
+my router https: 192.168.1.1 : 443
+pc1 of network http : 192.168.1.45 : 80

@@ -1,0 +1,223 @@
+#
+# .bashrc
+#
+
+#~~~~~~~~~~~~~~~~~COLOURS~FORMAT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+BOLD="\033[1m"
+RESET="\033[0m"
+UNDERLINE="\033[4m"
+
+GREY="\033[30m"
+RED="\033[31m"
+GREEN="\033[32m"
+YELLOW="\033[33m"
+BLUE="\033[34m"
+MAGENDA="\033[35m"
+CYAN="\033[36m"
+WHITE="\033[37m"
+ORANGE="\033[39m"
+
+GREY_BACKGROUND="\033[40m"
+RED_BACKGROUND="\033[41m"
+GREEN_BACKGROUND="\033[42m"
+YELLOW_BACKGROUND="\033[43m"
+BLUE_BACKGROUND="\033[44m"
+MAGENDA_BACKGROUND="\033[45m"
+CYAN_BACKGROUND="\033[46m"
+WHITE_BACKGROUND="\033[47m"
+ORANGE_BACKGROUND="\033[49m"
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#Ubuntu office
+# If not running interactively, don't do anything
+#[ -z "$PS1" ] && return
+
+#Mint home
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+#~~~~~~~~~~~~~~~~~HISTORY~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# don't put duplicate lines in the history. See bash(1) for more options
+# ... or force ignoredups and ignorespace
+HISTCONTROL=ignoredups:ignorespace
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=2000
+HISTFILESIZE=4000
+
+export HISTTIMEFORMAT="%d/%m/%y %T: "
+# Bypass this:  unset HISTFILE && exit
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Prompt ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# set a fancy non-color
+case "$TERM" in
+    xterm-color) color_prompt=yes;;
+esac
+
+#Colored prompt, if the terminal has the capability; 
+#force_color_prompt=yes
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+    else
+	color_prompt=
+    fi
+fi
+
+
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\033]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+
+PS1='\u@\h:\w$ \[\033]0;\h \w\007\]'
+#PS1='\[\e[42m\]\[\e[1;33m\]DEV-01\[\e[49m\]\[\e[0;39m\][\u@\h \W]$ \[\e[0;39m\]'
+#PS1='\e[42m\e[1;33mDEV-01\e[49m\e[0;39m[\u@\h \W]$ \e[0;39m'
+#PS1='\e[42m \e[1;33m DEV-01 \e[49m \e[0;39m [\u@\h \W]$ \e[0;39m'
+#PS1='\e[44m\e[1;33mDEV-01\e[44m\e[1;33m:D [\u@\h \W \e[0;39m $'
+#PS1='\e[44m\e[1;33mDEV-01\e[44m\e[1;33m:D\e[0;39m\e[\u@\h \W ] $'
+export PS1
+
+#~~~~~~~~~~~~~~~~~Aliases~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+
+alias ll='ls -lF'
+alias la='ls -A'
+alias l='ls -CF'
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias diff='colordiff'
+alias mkdir='mkdir -pv'
+alias mount='mount |column -t'
+alias wget='wget -c' #resumes downloads
+#alias rm='rm -i'
+# aliases to clear semaphores and shm
+#alias clear_semaphores='for s in $(ipcs -s | grep $(whoami) | cut -f1 -d'\'' '\'' | xargs); do ipcrm -S $s; done'
+#alias clear_shm='for s in $(ipcs -m | grep $(whoami) | cut -f1 -d'\'' '\'' | xargs); do ipcrm -M $s; done'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like ~/.bash_aliases
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~Paths~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# set PATH so it includes user's private bin directories
+PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+#PATH=$PATH:/opt
+#PATH=$COMPANYDIR/bin
+#PATH=$PATH:$RELEASE/site_management
+#PATH=$PATH:$RELEASE/site_management/tools
+#PATH=$PATH:$RELEASE/dev_utils/scripts
+#PATH=$PATH:$OPERELEASE/dev_utils/monitoring
+#PATH=$PATH:$TRELEASE/bin
+#PATH=$PATH:$INFORMIXDIR/bin
+#PATH=$PATH:$TCL/bin
+#PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+#export PATH=$PATH:~/my_scripts/
+export PATH
+
+#~~~~~~~~~~~~~~~~~Maven~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# maven settings (CI)
+#export CI_USER=
+#export CI_ENCPASS=
+
+#~~~~~~~~~~~~~~~~~Connections~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Connect to server passwordlessly - general
+#export SERVER_PWD=
+#alias SERVER_NAME='sshpass -p $SERVER_PWD ssh -o StrictHostKeyChecking=no username@host'
+#alias space='ssh username@host -t "cd /space/username; exec \$SHELL -l"'
+#alias dev01='ssh host'
+
+#~~~~~~~~~~~~~~~~~Git prompt~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#git clone https://github.com/magicmonty/bash-git-prompt.git .bash-git-prompt --depth=1
+#Needs the .bash-git-prompt repo
+GIT_PROMPT_ONLY_IN_REPO=1
+source ~/.bash-git-prompt/gitprompt.sh
+
+#~~~~~~~~~~~~~~~~~~~~~~~ssh aliases .ssh/config~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# List available ssh aliases
+alias ssh_aliases="grep -vi user ~/.ssh/config | paste - - | sed 's/host /\t/I' | sed 's/\s*hostname / -> /I'"
+
+#
+# Display available ssh aliases
+#------------------------------
+if [[ $- =~ "i" ]] && [[ -f ~/.ssh/config ]]; then
+	echo -e "\nSSH Aliases:\n------------"
+	ssh_aliases
+	echo -ne "\n"
+fi
+
+#~~~~~~~~~~~~ Git alliases ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+alias master='git checkout master;git fetch;git pull'
+alias add='git add --all'
+alias pick='git cherry-pick'
+alias commit='git commit -m'
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+

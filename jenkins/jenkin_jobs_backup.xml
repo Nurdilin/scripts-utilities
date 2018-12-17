@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+    <actions/>
+	<description></description>
+	<keepDependencies>false</keepDependencies>
+	
+	<properties>
+		<jenkins.model.BuildDiscarderProperty>
+			<strategy class="hudson.tasks.LogRotator">
+				<daysToKeep>-1</daysToKeep>
+				<numToKeep>15</numToKeep>
+				<artifactDaysToKeep>-1</artifactDaysToKeep>
+				<artifactNumToKeep>-1</artifactNumToKeep>
+			</strategy>
+		</jenkins.model.BuildDiscarderProperty>
+		<hudson.plugins.disk__usage.DiskUsageProperty plugin="disk-usage@0.28"/>
+		<org.jenkinsci.plugins.mavenrepocleaner.MavenRepoCleanerProperty plugin="maven-repo-cleaner@1.2">
+			<notOnThisProject>false</notOnThisProject>
+		</org.jenkinsci.plugins.mavenrepocleaner.MavenRepoCleanerProperty>
+		<de.pellepelster.jenkins.walldisplay.WallDisplayJobProperty plugin="jenkinswalldisplay@0.6.30"/>
+		<org.jvnet.hudson.plugins.shelveproject.ShelveProjectProperty plugin="shelve-project-plugin@1.5"/>
+	</properties>
+	
+	<!--	SCM Sync configuration plugin
+	
+		To install SCM Sync Configuration Plugin, Go to the "plugin management" section in the administration Panel.
+		Latest released version will be available. Install it from there (you should need to restart Jenkins/Hudson after that).
+		To verify that the plugin is well installed, go to the Administration panel, then in the "System configuration" section : 
+		you should notice a "SCM Sync Configuration" section
+	-->
+	<scm class="hudson.plugins.git.GitSCM" plugin="git@2.5.0">
+		<configVersion>2</configVersion>
+		<userRemoteConfigs>
+			<hudson.plugins.git.UserRemoteConfig>
+				<url>git@github.com:Nurdilin/Jenkins.git</url>
+				<credentialsId>tbc</credentialsId>
+			</hudson.plugins.git.UserRemoteConfig>
+		</userRemoteConfigs>
+		<branches>
+			<hudson.plugins.git.BranchSpec>
+				<name>*/master</name>
+			</hudson.plugins.git.BranchSpec>
+		</branches>
+		<doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+		<browser class="hudson.plugins.git.browser.Stash">
+			<url>https://github.com/Nurdilin/Jenkins.git</url>
+		</browser>
+		<submoduleCfg class="list"/>
+		<extensions>
+			<hudson.plugins.git.extensions.impl.LocalBranch>
+				<localBranch>master</localBranch>
+			</hudson.plugins.git.extensions.impl.LocalBranch>
+		</extensions>
+	</scm>
+	
+	<assignedNode>script-runner</assignedNode>
+	<canRoam>false</canRoam>
+	<disabled>false</disabled>
+	<blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+	<blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+	<jdk>(System)</jdk>
+	
+	<triggers>
+		<hudson.triggers.TimerTrigger>
+			<spec>H 1 * * *</spec>
+		</hudson.triggers.TimerTrigger>
+	</triggers>
+	
+	<concurrentBuild>false</concurrentBuild>
+	
+	<builders>
+		<hudson.tasks.Shell>
+			<command>
+			./get-jobs.sh
+
+			git commit --allow-empty -m &quot;Latest Jenkins Jobs Job: $BUILD_URL&quot;
+
+			git push origin master</command>
+		</hudson.tasks.Shell>
+	</builders>
+	
+	<publishers>
+		<hudson.tasks.Mailer plugin="mailer@1.17">
+			<recipients>test@email.com</recipients>
+			<dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+			<sendToIndividuals>false</sendToIndividuals>
+		</hudson.tasks.Mailer>
+	</publishers>
+	
+	<buildWrappers>
+		<hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.29">
+			<deleteDirs>false</deleteDirs>
+			<cleanupParameter></cleanupParameter>
+			<externalDelete></externalDelete>
+		</hudson.plugins.ws__cleanup.PreBuildCleanup>
+		
+		<com.michelin.cio.hudson.plugins.maskpasswords.MaskPasswordsBuildWrapper>
+			<varPasswordPairs>
+				<varPasswordPair var="JENKINS_USER" password="tbc"/>
+				<varPasswordPair var="JENKINS_PASS" password="tbc"/>
+			</varPasswordPairs>
+		</com.michelin.cio.hudson.plugins.maskpasswords.MaskPasswordsBuildWrapper>
+		
+		<hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.8.3"/>
+	</buildWrappers>
+	
+</project>
+    

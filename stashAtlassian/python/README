@@ -1,0 +1,14 @@
+#=======================INSTALLATION============================================================================================
+Install python dev tools via:
+
+	sudo apt-get install python-dev   # for python2.x installs
+	sudo apt-get install python3-dev  # for python3.x installs
+
+Install dependencies via:
+
+	sudo -E pip install -r requirements.txt
+
+
+#======================VARIOUS==================================================================================================
+
+pylint --generate-rcfile 
