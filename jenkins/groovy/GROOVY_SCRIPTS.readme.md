@@ -3,3 +3,6 @@ It is both a static and dynamic language with features similar to those of Pytho
 It can be used as both a programming language and a scripting language for the Java Platform, 
 is compiled to Java virtual machine (JVM) bytecode, and interoperates seamlessly with other Java code and libraries. 
 
+Useful links
+
+https://javadoc.jenkins.io/
