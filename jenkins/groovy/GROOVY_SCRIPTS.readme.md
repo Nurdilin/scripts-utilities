@@ -6,3 +6,4 @@ is compiled to Java virtual machine (JVM) bytecode, and interoperates seamlessly
 Useful links
 
 https://javadoc.jenkins.io/
+https://javadoc.jenkins-ci.org/
