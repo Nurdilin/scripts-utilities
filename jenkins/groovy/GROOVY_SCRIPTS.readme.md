@@ -7,3 +7,5 @@ Useful links
 
 https://javadoc.jenkins.io/
 https://javadoc.jenkins-ci.org/
+https://javadoc.jenkins-ci.org/hudson/model/package-tree.html
+https://javadoc.jenkins-ci.org/jenkins/model/package-tree.html
