@@ -9,3 +9,44 @@ https://javadoc.jenkins.io/
 https://javadoc.jenkins-ci.org/
 https://javadoc.jenkins-ci.org/hudson/model/package-tree.html
 https://javadoc.jenkins-ci.org/jenkins/model/package-tree.html
+
+
+
+
+
+
+//Various notes
+
+Jenkins was previously known as Hudson
+
+import hudson.model.*
+for(item in Hudson.instance.items)
+for (slave in Hudson.instance.salves)
+
+
+hudson.model.Hudson.instance.items
+hudson.model.Hudson.instance.slaves
+jenkins.model.Jenkins.instance.slaves
+
+
+
+slave.	name
+	getLabelString()
+	getNumExecutors()
+	getRemoteFS()
+	getMode()
+	getRootPath()
+	getDescriptor()
+	getComputer()
+	getComputer().isAcceptingTasks()
+	getComputer().isLaunchSupported()
+	getComputer().getConnectTime()
+	getComputer().getDemandStartMilliseconds()
+	getComputer().isOffline()
+	getComputer().countBusy()
+	getComputer().setTemporarilyOffline(true,null)
+	getComputer().doDoDelete()
+	getComputer().getLog()
+	getComputer().getBuilds()
+
+	setLabelString(newLabelName)
