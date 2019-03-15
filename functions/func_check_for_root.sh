@@ -1,15 +1,16 @@
-##### (Cosmetic) Colour output
-RED="\033[01;31m"      # Issues/Errors
-RESET="\033[00m"       # Normal
-GREEN="\033[01;32m"    # Success
+#!/bin/bash
 
+# source it and run in in another script
+# . ./functions/func_check_for_route.sh
 
-function _check_for_root {
-
-	if [[ ${EUID} -ne 0 ]]; then
-		echo -e ' '${RED}'[!]'${RESET}" This script must be ${RED}run as root${RESET}. Quitting..." 1>&2
-		exit 1
+function _root_check {
+	if [ $UID -ne 0 ]; then
+		echo "not root user"
 	else
-		echo -e " ${GREEN}Continuing as root${RESET}"
+		echo "root user"
 	fi
+	return $UID #0 for root aka true, non-0 for other user aka false	
 }
+
+#_root_check
+
