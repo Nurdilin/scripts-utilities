@@ -192,24 +192,45 @@ export PATH
 #alias space='ssh username@host -t "cd /space/username; exec \$SHELL -l"'
 #alias dev01='ssh host'
 
+
+
 #~~~~~~~~~~~~~~~~~Git prompt~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #git clone https://github.com/magicmonty/bash-git-prompt.git .bash-git-prompt --depth=1
 #Needs the .bash-git-prompt repo
 GIT_PROMPT_ONLY_IN_REPO=1
 source ~/.bash-git-prompt/gitprompt.sh
 
+
+#-----------------------OLD--------------------------------------------------------------------------
 #~~~~~~~~~~~~~~~~~~~~~~~ssh aliases .ssh/config~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # List available ssh aliases
-alias ssh_aliases="grep -vi user ~/.ssh/config | paste - - | sed 's/host /\t/I' | sed 's/\s*hostname / -> /I'"
-
+#alias ssh_aliases="grep -vi user ~/.ssh/config | paste - - | sed 's/host /\t/I' | sed 's/\s*hostname / -> /I'"
 #
 # Display available ssh aliases
 #------------------------------
+#if [[ $- =~ "i" ]] && [[ -f ~/.ssh/config ]]; then
+#	echo -e "\nSSH Aliases:\n------------"
+#	ssh_aliases
+#	echo -ne "\n"
+#fi
+
+############EASY NAVIGATION###############################################################################
+#$- contains the current shell options.
+#In [[ ... ]], the right hand side of a = is interpreted as a pattern if not quoted. 
+#Therefore, *i* means i possibly preceded or followed by anything.
+#In other words, it checks wheter the i option is present, i.e. whether the current shell is interactive.
+
+#An interactive shell is one started without non-option arguments and without the -c option whose standard input and error are both connected to terminals (as determined by isatty(3)), 
+#or one started with the -i option. PS1 is set and $- includes i if bash is interactive, allowing a shell script or a startup file to test this state.
+
+
 if [[ $- =~ "i" ]] && [[ -f ~/.ssh/config ]]; then
 	echo -e "\nSSH Aliases:\n------------"
-	ssh_aliases
+	grep -i host ~/.ssh/config |paste - -| sed 's/HostName/-->/' |sed 's/Host\t//'
 	echo -ne "\n"
 fi
+
+
 
 #~~~~~~~~~~~~ Git alliases ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
