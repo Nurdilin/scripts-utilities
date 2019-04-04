@@ -1,6 +1,6 @@
 #!/bin/bash
 #############################################################################
-#usage example: ./remote_exec.sh "df -h"
+#usage example: ./mass_ssh_exec.sh "df -h"
 ##############################################################################
 #assumption is that .ssh/config contains aliases of all the needed boxes
 #in the following format
