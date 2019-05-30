@@ -157,7 +157,25 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-
+#----------------------Colour in man and less ------------------------------------------
+#termcap terminfo  
+#ks      smkx      make the keypad send commands
+#ke      rmkx      make the keypad send digits
+#vb      flash     emit visual bell
+#mb      blink     start blink
+#md      bold      start bold
+#me      sgr0      turn off bold, blink and underline
+#so      smso      start standout (reverse video)
+#se      rmso      stop standout
+#us      smul      start underline
+#ue      rmul      stop underline
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;33m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m' # end the info box
+export LESS_TERMCAP_so=$'\E[01;42;30m' # begin the info box
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;36m'
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # colored GCC warnings and errors
