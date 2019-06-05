@@ -6,20 +6,23 @@
 # Tip    : create an aliases 
 #          alias cs=~/scripts-utilities/utilities/create_script.sh
 
+_filename=$1.sh
+
 # create file
-touch $1.sh
+touch $_filename
 
 # make script executable and accessible only by user
-chmod 700 $1
+chmod 700 $_filename
 
 # Initialise script
-echo "#!/bin/bash" > $1
-echo "# Author : Theofanis Deligiannis-Virvos" >> $1
-echo "# Summary:" >> $1
-echo "# Usage  :" >> $1
+echo "#!/bin/bash" > $_filename
+echo "# Author : Theofanis Deligiannis-Virvos" >> $_filename
+echo "# Summary:" >> $_filename
+echo "# Usage  :" >> $_filename
+echo "" >> $_filename
 
 # open vim on line 5
-vim $1 +5
+vim $_filename +5
 
 # exit with vim's exit status
 exit $? 
