@@ -6,6 +6,12 @@
 # Tip    : create an aliases 
 #          alias cs=~/scripts-utilities/utilities/create_script.sh
 
+
+if [[ "$#" -eq 0 ]]; then
+	echo "Usage: $(basename $0) file_name"
+	exit 1
+fi
+
 _filename=$1.sh
 
 # create file
