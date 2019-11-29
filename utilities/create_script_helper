@@ -1,0 +1,47 @@
+
+# Author : Theofanis Deligiannis-Virvos
+# Summary: Helper script to create bash scripts
+# Usage  : ./create_script.sh scriptname (without file type)
+# Tip    : create an aliases 
+#          alias cs=~/scripts-utilities/utilities/create_script.sh
+
+_finish() {
+	__result__=$1
+
+	# Your cleanup code here
+	exit ${__result__}
+}
+
+_unexpected_exit () {
+	echo "ERROR: Something unexpected happen on line ${BASH_LINENO[*]} of script: $0"
+	echo "Exiting"
+	_finish 255
+}
+
+_check_command_warn () {
+	#_check_command_warn $? "message"
+	_result=$1
+	_warn_message=$2
+
+	if [[ "${_result}" -eq 0 ]] ; then
+		return 0
+	else
+		echo "WARNING: ${_warn_message}"
+		return 1
+	fi
+}
+
+_check_command_err () {
+	_result=$1
+	_error_message=$2
+
+	if [[ "${_result}" -eq 0 ]] ; then
+		return 0
+	else
+		echo "ERROR: ${_error_message}"
+		echo "Exiting."
+		_finish "${_result}"
+	fi
+}
+
+trap '_finish 254'  EXIT ERR SIGTERM SIGHUP

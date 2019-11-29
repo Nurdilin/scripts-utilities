@@ -5,6 +5,7 @@
 # Usage  : ./create_script.sh scriptname (without file type)
 # Tip    : create an aliases 
 #          alias cs=~/scripts-utilities/utilities/create_script.sh
+scriptsdir="$(dirname $0)"
 
 _filename=$1.sh
 
@@ -16,13 +17,10 @@ chmod 700 $_filename
 
 # Initialise script
 echo "#!/bin/bash" > $_filename
-echo "# Author : Theofanis Deligiannis-Virvos" >> $_filename
-echo "# Summary:" >> $_filename
-echo "# Usage  :" >> $_filename
-echo "" >> $_filename
+cat "${scriptsdir}"/create_script_helper >> $_filename
 
-# open vim on line 5
-vim $_filename +5
+# open vim on line 50
+vim $_filename +50
 
 # exit with vim's exit status
-exit $? 
+exit $?
