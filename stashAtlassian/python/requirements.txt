@@ -1,4 +1,4 @@
-Jinja2==2.8
+Jinja2==2.11.3
 paramiko==2.20.0
 pytz==2016.4
 reportlab==3.3.0
