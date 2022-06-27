@@ -1,7 +1,7 @@
 Jinja2==2.8
 paramiko==2.20.0
 pytz==2016.4
-reportlab==3.3.0
+reportlab==3.5.55
 requests==2.20.0
 pyPdf==1.13
 PyYAML==5.1
